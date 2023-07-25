@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GorillaWizards Priority PvP Target List</title>
+  <style>
+    .container {
+      display:flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 100px;
+    }
+
+    .btn {
+      font-size: 36px;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    #link {
+      margin-top: 20px;
+    }
+
+    #attackBtn {
+      background-color: #ff0000;
+      color: #ffffff;
+      margin-top: 20px;
+      font-size: 36px;
+      width: 150px !important;
+      height: 100px !important;
+    }
+
+    #nextBtn {
+      background-color: #008000;
+      color: #ffffff;
+      margin-top: 20px;
+      font-size: 36px;
+      width: 150px !important;
+      height: 100px !important;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="link"></div>
+    <button id="attackBtn" class="btn" onclick="attack()" disabled>Attack</button>
+    <button id="nextBtn" class="btn" onclick="next()">Next</button>
+    <button class="btn" onclick="selectDatabase(0)">Legacy Levels</button>
+    <button class="btn" onclick="selectDatabase(1)">Level 1-10k</button>
+    <button class="btn" onclick="selectDatabase(2)">Level 10k-25k</button>
+    <button class="btn" onclick="selectDatabase(3)">Level 25k+</button>
+  </div>
+
+  <script>
+    // Sample databases of links
+    const databases = [
+      [
+	' ',
+	'https://web.simple-mmo.com/user/attack/279358',
+	'https://web.simple-mmo.com/user/attack/693396',
+	'https://web.simple-mmo.com/user/attack/780960',
+	'https://web.simple-mmo.com/user/attack/694553',
+	'https://web.simple-mmo.com/user/attack/221577',
+	'https://web.simple-mmo.com/user/attack/78373',
+	'https://web.simple-mmo.com/user/attack/529583',
+	'https://web.simple-mmo.com/user/attack/230455',
+	'https://web.simple-mmo.com/user/attack/362642',
+	'https://web.simple-mmo.com/user/attack/83653',
+	'https://web.simple-mmo.com/user/attack/619475',
+	'https://web.simple-mmo.com/user/attack/249334',
+	'https://web.simple-mmo.com/user/attack/318392',
+	'https://web.simple-mmo.com/user/attack/178006',
+	'https://web.simple-mmo.com/user/attack/349950',
+	'https://web.simple-mmo.com/user/attack/247146',
+	'https://web.simple-mmo.com/user/attack/698315',
+	'https://web.simple-mmo.com/user/attack/596375',
+	'https://web.simple-mmo.com/user/attack/428912',
+	'https://web.simple-mmo.com/user/attack/831200',
+	'https://web.simple-mmo.com/user/attack/218824',
+	'https://web.simple-mmo.com/user/attack/287006',
+	'https://web.simple-mmo.com/user/attack/544390',
+	'https://web.simple-mmo.com/user/attack/410883',
+	'https://web.simple-mmo.com/user/attack/83382',
+	'https://web.simple-mmo.com/user/attack/347372',
+	'https://web.simple-mmo.com/user/attack/548274',
+	'https://web.simple-mmo.com/user/attack/307453',
+	'https://web.simple-mmo.com/user/attack/18515',
+	'https://web.simple-mmo.com/user/attack/340752',
+	'https://web.simple-mmo.com/user/attack/160477',
+	'https://web.simple-mmo.com/user/attack/276874',
+	'https://web.simple-mmo.com/user/attack/113403',
+	'https://web.simple-mmo.com/user/attack/300717',
+	'https://web.simple-mmo.com/user/attack/90451',
+	'https://web.simple-mmo.com/user/attack/211807',
+	'https://web.simple-mmo.com/user/attack/146019',
+	'https://web.simple-mmo.com/user/attack/47144',
+	'https://web.simple-mmo.com/user/attack/453418',
+	'https://web.simple-mmo.com/user/attack/91875',
+	'https://web.simple-mmo.com/user/attack/327703',
+	'https://web.simple-mmo.com/user/attack/449751',
+	'https://web.simple-mmo.com/user/attack/777182',
+	'https://web.simple-mmo.com/user/attack/465216',
+	'https://web.simple-mmo.com/user/attack/361302',
+	'https://web.simple-mmo.com/user/attack/8486',
+	'https://web.simple-mmo.com/user/attack/546741',
+	'https://web.simple-mmo.com/user/attack/314984',
+	'https://web.simple-mmo.com/user/attack/448098',
+	'https://web.simple-mmo.com/user/attack/130542',
+  'https://web.simple-mmo.com/user/attack/232775'
+      ],
+      [
+	' ',
+	'https://web.simple-mmo.com/user/attack/975614',
+	'https://web.simple-mmo.com/user/attack/871739',
+	'https://web.simple-mmo.com/user/attack/873626',
+	'https://web.simple-mmo.com/user/attack/969713',
+	'https://web.simple-mmo.com/user/attack/990959',
+	'https://web.simple-mmo.com/user/attack/940336',
+	'https://web.simple-mmo.com/user/attack/852329',
+	'https://web.simple-mmo.com/user/attack/939872',
+	'https://web.simple-mmo.com/user/attack/844079',
+	'https://web.simple-mmo.com/user/attack/846071',
+	'https://web.simple-mmo.com/user/attack/720703',
+	'https://web.simple-mmo.com/user/attack/1020764',
+	'https://web.simple-mmo.com/user/attack/907984',
+	'https://web.simple-mmo.com/user/attack/440160',
+	'https://web.simple-mmo.com/user/attack/798940',
+	'https://web.simple-mmo.com/user/attack/932939',
+	'https://web.simple-mmo.com/user/attack/557925',
+	'https://web.simple-mmo.com/user/attack/1022850',
+	'https://web.simple-mmo.com/user/attack/947380',
+	'https://web.simple-mmo.com/user/attack/367640',
+	'https://web.simple-mmo.com/user/attack/884258',
+	'https://web.simple-mmo.com/user/attack/364786',
+	'https://web.simple-mmo.com/user/attack/666909',
+	'https://web.simple-mmo.com/user/attack/1015637',
+	'https://web.simple-mmo.com/user/attack/435446',
+	'https://web.simple-mmo.com/user/attack/844126',
+	'https://web.simple-mmo.com/user/attack/673053',
+	'https://web.simple-mmo.com/user/attack/943957',
+	'https://web.simple-mmo.com/user/attack/421922',
+	'https://web.simple-mmo.com/user/attack/998100',
+	'https://web.simple-mmo.com/user/attack/120685',
+	'https://web.simple-mmo.com/user/attack/780296',
+	'https://web.simple-mmo.com/user/attack/589481',
+	'https://web.simple-mmo.com/user/attack/192314',
+	'https://web.simple-mmo.com/user/attack/686697',
+	'https://web.simple-mmo.com/user/attack/469486',
+	'https://web.simple-mmo.com/user/attack/682761',
+	'https://web.simple-mmo.com/user/attack/252157',
+	'https://web.simple-mmo.com/user/attack/820983',
+	'https://web.simple-mmo.com/user/attack/966621',
+	'https://web.simple-mmo.com/user/attack/965061',
+	'https://web.simple-mmo.com/user/attack/575974',
+	'https://web.simple-mmo.com/user/attack/1002329',
+	'https://web.simple-mmo.com/user/attack/35436',
+	'https://web.simple-mmo.com/user/attack/103730',
+	'https://web.simple-mmo.com/user/attack/998792',
+	'https://web.simple-mmo.com/user/attack/8390',
+	'https://web.simple-mmo.com/user/attack/971366',
+	'https://web.simple-mmo.com/user/attack/495432',
+	'https://web.simple-mmo.com/user/attack/1019858',
+	'https://web.simple-mmo.com/user/attack/680202',
+	'https://web.simple-mmo.com/user/attack/531129',
+	'https://web.simple-mmo.com/user/attack/1017453',
+	'https://web.simple-mmo.com/user/attack/829073',
+  'https://web.simple-mmo.com/user/attack/772678'
+      ],
+      [
+	' ',
+  'https://web.simple-mmo.com/user/attack/627864',
+  'https://web.simple-mmo.com/user/attack/853184',
+  'https://web.simple-mmo.com/user/attack/869991',
+  'https://web.simple-mmo.com/user/attack/571439',
+  'https://web.simple-mmo.com/user/attack/543697',
+  'https://web.simple-mmo.com/user/attack/186520',
+	'https://web.simple-mmo.com/user/attack/54148',
+	'https://web.simple-mmo.com/user/attack/287268',
+	'https://web.simple-mmo.com/user/attack/285112',
+	'https://web.simple-mmo.com/user/attack/271701',
+	'https://web.simple-mmo.com/user/attack/1010533',
+	'https://web.simple-mmo.com/user/attack/1005004',
+	'https://web.simple-mmo.com/user/attack/77247',
+	'https://web.simple-mmo.com/user/attack/85132',
+	'https://web.simple-mmo.com/user/attack/219545',
+	'https://web.simple-mmo.com/user/attack/236131',
+	'https://web.simple-mmo.com/user/attack/1007973',
+	'https://web.simple-mmo.com/user/attack/464663',
+	'https://web.simple-mmo.com/user/attack/980477',
+	'https://web.simple-mmo.com/user/attack/119699',
+	'https://web.simple-mmo.com/user/attack/452654',
+	'https://web.simple-mmo.com/user/attack/672062',
+	'https://web.simple-mmo.com/user/attack/939521',
+	'https://web.simple-mmo.com/user/attack/111494'
+      ],
+      [
+	' ',
+  'https://web.simple-mmo.com/user/attack/277382',
+  'https://web.simple-mmo.com/user/attack/616892',
+	'https://web.simple-mmo.com/user/attack/647543',
+	'https://web.simple-mmo.com/user/attack/428210',
+	'https://web.simple-mmo.com/user/attack/366575',
+	'https://web.simple-mmo.com/user/attack/814992',
+	'https://web.simple-mmo.com/user/attack/181824',
+	'https://web.simple-mmo.com/user/attack/232750',
+	'https://web.simple-mmo.com/user/attack/632958',
+	'https://web.simple-mmo.com/user/attack/180169',
+	'https://web.simple-mmo.com/user/attack/418257',
+	'https://web.simple-mmo.com/user/attack/353372',
+	'https://web.simple-mmo.com/user/attack/1003393',
+	'https://web.simple-mmo.com/user/attack/204453',
+	'https://web.simple-mmo.com/user/attack/695592',
+	'https://web.simple-mmo.com/user/attack/703483',
+	'https://web.simple-mmo.com/user/attack/801580',
+	'https://web.simple-mmo.com/user/attack/922956',
+	'https://web.simple-mmo.com/user/attack/468690',
+	'https://web.simple-mmo.com/user/attack/591420',
+	'https://web.simple-mmo.com/user/attack/354743',
+	'https://web.simple-mmo.com/user/attack/397397',
+	'https://web.simple-mmo.com/user/attack/783418',
+	'https://web.simple-mmo.com/user/attack/783630',
+	'https://web.simple-mmo.com/user/attack/828209'
+      ]
+    ];
+
+    let currentIndex = 0;
+    let currentDatabase = databases[0];
+
+    const attackBtn = document.getElementById('attackBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const linkDiv = document.getElementById('link');
+
+    // Function to update the link
+    function updateLink() {
+      linkDiv.textContent = currentDatabase[currentIndex];
+    }
+
+    // Function to handle the attack button click
+    function attack() {
+      const link = currentDatabase[currentIndex];
+      const newTab = window.open(link, '_blank');
+      newTab.opener = null; // Ensure no reference to the current page
+    }
+
+    function attack() {
+      const link = currentDatabase[currentIndex];
+      const newTab = window.open(link, '_blank');
+      if (newTab) {
+        newTab.opener = null; // Ensure no reference to the current page
+      } else {
+        // Popup blocked, provide alternative feedback or action
+        alert('Popup blocked. Please allow popups and try again.');
+      }
+    }
+
+    // Function to handle the next button click
+    function next() {
+      currentIndex++;
+      if (currentIndex >= currentDatabase.length) {
+        nextBtn.disabled = true;
+      }
+      attackBtn.disabled = false;
+      updateLink();
+    }
+
+    // Function to select the database
+    function selectDatabase(index) {
+      currentIndex = 0;
+      currentDatabase = databases[index];
+      nextBtn.disabled = false;
+      attackBtn.disabled = true;
+      updateLink();
+    }
+
+    // Initial setup
+    updateLink();
+  </script>
+</body>
+</html>
