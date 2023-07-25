@@ -21,15 +21,6 @@
       margin-top: 20px;
     }
 
-    #attackBtn {
-      background-color: #ff0000;
-      color: #ffffff;
-      margin-top: 20px;
-      font-size: 36px;
-      width: 150px !important;
-      height: 100px !important;
-    }
-
     #nextBtn {
       background-color: #008000;
       color: #ffffff;
@@ -44,8 +35,7 @@
 <body>
   <div class="container">
     <div id="link"></div>
-    <button id="attackBtn" class="btn" onclick="attack()" disabled>Attack</button>
-    <button id="nextBtn" class="btn" onclick="next()">Next</button>
+    <button id="nextBtn" class="btn" onclick="handleNextClick()">Next</button>
     <button class="btn" onclick="selectDatabase(0)">Legacy Levels</button>
     <button class="btn" onclick="selectDatabase(1)">Level 1-10k</button>
     <button class="btn" onclick="selectDatabase(2)">Level 10k-25k</button>
@@ -227,7 +217,6 @@
     let currentIndex = 0;
     let currentDatabase = databases[0];
 
-    const attackBtn = document.getElementById('attackBtn');
     const nextBtn = document.getElementById('nextBtn');
     const linkDiv = document.getElementById('link');
 
@@ -237,13 +226,13 @@
     }
 
     // Function to handle the attack button click
-    function attack() {
-      const link = currentDatabase[currentIndex];
-      const newTab = window.open(link, '_blank');
-      newTab.opener = null; // Ensure no reference to the current page
-    }
+    function handleNextClick() {
+      currentIndex++;
 
-    function attack() {
+      if (currentIndex >= currentDatabase.length) {
+      nextBtn.disabled = true;
+      }
+
       const link = currentDatabase[currentIndex];
       const newTab = window.open(link, '_blank');
       if (newTab) {
@@ -252,15 +241,7 @@
         // Popup blocked, provide alternative feedback or action
         alert('Popup blocked. Please allow popups and try again.');
       }
-    }
 
-    // Function to handle the next button click
-    function next() {
-      currentIndex++;
-      if (currentIndex >= currentDatabase.length) {
-        nextBtn.disabled = true;
-      }
-      attackBtn.disabled = false;
       updateLink();
     }
 
@@ -269,7 +250,6 @@
       currentIndex = 0;
       currentDatabase = databases[index];
       nextBtn.disabled = false;
-      attackBtn.disabled = true;
       updateLink();
     }
 
